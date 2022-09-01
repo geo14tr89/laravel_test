@@ -17,7 +17,7 @@ src/public_html/hot
 
 src/storage/*.key
 src/.env
-Homestead.yaml
-Homestead.json
+src/Homestead.yaml
+src/Homestead.json
 src/.vagrant
 src/.phpunit.result.cache
