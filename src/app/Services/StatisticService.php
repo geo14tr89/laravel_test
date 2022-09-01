@@ -35,7 +35,7 @@ class StatisticService
     {
         if ($this->checkSource()) {
             $statistic = new Statistic();
-            $statistic->user_id = Auth::user()->id ?? session()->get('user_id');
+            $statistic->user_id = Auth::user()->id;
             $statistic->source = $this->request->getRequestUri();
             $statistic->method = $this->request->getMethod();
             $statistic->count = 1;

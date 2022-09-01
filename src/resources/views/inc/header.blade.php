@@ -5,13 +5,13 @@
     </a>
 
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        @if (session()->has('user_name'))
-            <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('logout') }}">Logout {{ session()->get('user_name') }} </a>
+        @if (Auth::user())
+            <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('logout') }}">Logout {{ Auth::user()->name }} </a>
         @else
            <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('login') }}">Login</a>
         @endif
             <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('register') }}">Sign Up</a>
-        @if (session()->has('user_name'))
+        @if (Auth::user())
             <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('order') }}">Cowshed</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('document') }}">Documents</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('statistic-index') }}">Statistics</a>

@@ -21,3 +21,7 @@ src/Homestead.yaml
 src/Homestead.json
 src/.vagrant
 src/.phpunit.result.cache
+
+mysql/
+nginx/
+php/
