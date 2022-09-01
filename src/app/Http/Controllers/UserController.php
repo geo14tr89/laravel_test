@@ -38,8 +38,6 @@ class UserController extends Controller
 
             (new StatisticService($request))->addStatistics();
 
-
-
             return view('home')
                 ->with('success', 'Hello ' . $user->name . ', You successfully login!');
         }
