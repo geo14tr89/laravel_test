@@ -16,3 +16,5 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 6. Run ```php artisan migrate```
+7. Revert changes in ```.env```
+8. Run in browser ```http://laravel-test/```
