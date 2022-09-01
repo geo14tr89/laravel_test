@@ -6,7 +6,8 @@ Simple web project with track user activity
 2. In root folder ```docker-compose up -d --build```
 3. ```cd src```
 4. Open ```.env``` file
-5. Change DB_HOST=mysql to DB_HOST=localhost ```
+5. Change DB_HOST=mysql to DB_HOST=localhost 
+```php
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
