@@ -15,3 +15,4 @@ DB_DATABASE=homestead
 DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
+6. Run ```php artisan migrate```
