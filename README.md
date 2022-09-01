@@ -18,3 +18,4 @@ DB_PASSWORD=secret
 6. Run ```php artisan migrate```
 7. Revert changes in ```.env```
 8. Run in browser ```http://laravel-test/```
+9. For login you have default user ```Admin``` with admin credentials. Password ```12345678```
