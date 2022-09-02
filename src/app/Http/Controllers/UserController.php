@@ -55,8 +55,10 @@ class UserController extends Controller
     public function register(RegisterRequest $request): string
     {
         $userService = new UserService($request);
-        $userService->register();
+        if ($userService->register() === true) {
+            return view('home')->with('success', 'Thanks for your registration!');
+        }
 
-        return view('home')->with('success', 'Thanks for your registration!');
+        return view('home')->with('error', 'This user is already exists!');
     }
 }

@@ -4,10 +4,11 @@ namespace App\Services;
 
 
 use App\Models\Statistic;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class StatisticService
 {
@@ -30,16 +31,15 @@ class StatisticService
 
     /**
      * @return void
-     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function addStatistics(): void
     {
-
         if ($this->checkSource()) {
-            /** @var User $user */
             $user = Auth::user();
             $statistic = new Statistic();
-            $statistic->user_id = $user->id;
+            $statistic->user_id = $user->id ?? session()->get('user_id');
             $statistic->source = $this->request->getRequestUri();
             $statistic->method = $this->request->getMethod();
             $statistic->count = 1;

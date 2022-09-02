@@ -35,6 +35,8 @@ class UserService
 
             Auth::login($user);
 
+            session()->put('user_id', $user->id);
+
             return $user;
         }
 
@@ -69,7 +71,7 @@ class UserService
     {
         $user = new User();
         if ($user->checkUserExists($this->request->input('email'))) {
-            return view('home')->with('error', 'This user is already exists!');
+            return false;
         }
 
         $user->name = $this->request->input('name');
