@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\Statistic;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,9 +34,12 @@ class StatisticService
      */
     public function addStatistics(): void
     {
+
         if ($this->checkSource()) {
+            /** @var User $user */
+            $user = Auth::user();
             $statistic = new Statistic();
-            $statistic->user_id = Auth::user()->id;
+            $statistic->user_id = $user->id;
             $statistic->source = $this->request->getRequestUri();
             $statistic->method = $this->request->getMethod();
             $statistic->count = 1;

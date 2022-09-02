@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
-use App\Services\StatisticService;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('statistic');
+    }
+
     /**
      * @param Request $request
      * @return string

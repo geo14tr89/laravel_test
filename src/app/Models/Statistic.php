@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @property int $user_id
+ * @property string $source
+ * @property string $method
+ * @property int $count
+ */
+
 class Statistic extends Model
 {
     use HasFactory;
-
-    public const COUNT_VISIT_DEFAULT = 1;
-    public const COUNT_CLICK_DEFAULT = 1;
 
     public const SOURCE_ORDER_INDEX = '/order/index';
     public const SOURCE_ORDER_SEND = '/order/send';
@@ -24,28 +28,6 @@ class Statistic extends Model
     public const SOURCE_USER_REGISTER = '/user/register';
 
     protected $primaryKey = 'id';
-
-    public static function getStatistics(Request $request)
-    {
-        return self::where(
-            [
-                'user_id' => Auth::user()->id,
-                'source' => $request->getRequestUri()
-            ]
-        )->first();
-    }
-
-    /**
-     * @param Request $request
-     * @return bool
-     */
-    public static function checkStatisticExists(Request $request): bool
-    {
-        return DB::table('statistics')->select('*')
-            ->where('user_id', Auth::user()->id)
-            ->where('source', $request->getRequestUri())
-            ->exists();
-    }
 
     public static function attributesForFilter(): array
     {

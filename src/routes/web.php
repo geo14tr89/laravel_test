@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\StatisticMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,44 +20,6 @@ Route::get('/', static function () {
     return view('home');
 })->name('home');
 
-Route::get('/about', static function () {
-    return view('about');
-})->name('about');
-
-Route::get('/contact', static function () {
-    return view('contact');
-})->name('contact');
-
-Route::get(
-    '/contact/all/{id}',
-    'App\Http\Controllers\ContactController@showOneMessage'
-)->name('contact-data-one');
-
-Route::get(
-    '/contact/all/{id}/update',
-    'App\Http\Controllers\ContactController@updateMessage'
-)->name('contact-update');
-
-Route::get(
-    '/contact/all',
-    'App\Http\Controllers\ContactController@allData'
-)->name('contact-data');
-
-Route::post(
-    '/contact/submit',
-    'App\Http\Controllers\ContactController@submit'
-)->name('contact-form');
-
-Route::post(
-    '/contact/all/{id}/update',
-    'App\Http\Controllers\ContactController@updateMessageSubmit'
-)->name('contact-update-submit');
-
-Route::get(
-    '/contact/all/{id}/delete',
-    'App\Http\Controllers\ContactController@deleteMessage'
-)->name('contact-delete');
-
 Route::get('/login', static function () {
     return view('login');
 })->name('login');
@@ -68,42 +31,37 @@ Route::get('/register', static function () {
 Route::post(
     'user/register',
     'App\Http\Controllers\UserController@register'
-)->name('user/register');
+)->name('user/register')->middleware(StatisticMiddleware::class);
 
 Route::post(
     'user/login',
     'App\Http\Controllers\UserController@login'
-)->name('user/login');
+)->name('user/login')->middleware(StatisticMiddleware::class);
 
 Route::get(
     'user/logout',
     'App\Http\Controllers\UserController@logout'
-)->name('logout');
-
-Route::get('user/info', [
-    'middleware' => 'auth',
-    'uses' => 'UserController@info'
-]);
+)->name('logout')->middleware(StatisticMiddleware::class);
 
 Route::get(
     'order/index',
     'App\Http\Controllers\OrderController@index'
-)->name('order');
+)->name('order')->middleware(StatisticMiddleware::class);
 
 Route::post(
     'order/send',
     'App\Http\Controllers\OrderController@send'
-)->name('send');
+)->name('send')->middleware(StatisticMiddleware::class);
 
 Route::get(
     'document/index',
     'App\Http\Controllers\DocumentController@index'
-)->name('document');
+)->name('document')->middleware(StatisticMiddleware::class);
 
 Route::get(
     'document/download',
     'App\Http\Controllers\DocumentController@download'
-)->name('download');
+)->name('download')->middleware(StatisticMiddleware::class);
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get(

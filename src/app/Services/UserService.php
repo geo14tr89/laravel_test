@@ -21,6 +21,7 @@ class UserService
 
     public function login()
     {
+        /** @var User $user */
         $user = User::where('name', '=', $this->request->input('name'))
             ->where('password', '=', sha1($this->request->input('password')))
             ->first();
@@ -34,8 +35,6 @@ class UserService
 
             Auth::login($user);
 
-            (new StatisticService($this->request))->addStatistics();
-
             return $user;
         }
 
@@ -44,8 +43,12 @@ class UserService
 
     public function logout()
     {
-        $userName = Auth::user()->name;
+        /** @var User $user */
+        $user = Auth::user();
+        $userName = $user->name;
+
         if ($userName !== null) {
+            /** @var User $user */
             $user = User::where('name', '=', $userName)->first();
             if ($user !== null) {
                 $user->remember_token = '';
@@ -53,7 +56,6 @@ class UserService
                     throw new \RuntimeException('Error per save user!');
                 }
 
-                (new StatisticService($this->request))->addStatistics();
                 Auth::logout();
 
                 return true;
@@ -79,10 +81,6 @@ class UserService
         }
 
         $user->assignRole('user');
-
-        Auth::login($user);
-        (new StatisticService($this->request))->addStatistics();
-        Auth::logout();
 
         return true;
     }

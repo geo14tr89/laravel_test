@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function index(Request $request)
+    public function __construct()
     {
-        (new StatisticService($request))->addStatistics();
+        $this->middleware('statistic');
+    }
 
+    public function index()
+    {
         return view('document');
     }
 
-    public function download(Request $request)
+    public function download()
     {
-        (new StatisticService($request))->addStatistics();
-
         return response()->download(public_path('files/test.xls'));
     }
 }
