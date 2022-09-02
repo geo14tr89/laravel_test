@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Charts\ReportChart;
 use App\Models\Statistic;
 
 use Illuminate\Support\Facades\DB;
@@ -92,5 +93,119 @@ class ReportService
         }
 
         return array_values($result);
+    }
+
+    public function chartForClickDownload(): ReportChart
+    {
+        $chartClickDownload = new ReportChart();
+        if (!isset($this->buttonClickDownload[0])) {
+            $chartClickDownload->labels(['Button Click Download']);
+            $chartClickDownload->dataset(
+                'Empty data',
+                'bar',
+                [
+                    0
+                ]
+            );
+        } else {
+            foreach ($this->buttonClickDownload as $item) {
+                $chartClickDownload->labels(['Button Click Download']);
+                $chartClickDownload->dataset(
+                    $item->date,
+                    'bar',
+                    [
+                        $item->count,
+                    ]
+                );
+            }
+        }
+
+        return $chartClickDownload;
+    }
+
+    public function chartForClickBuy(): ReportChart
+    {
+        $chartClickBuy = new ReportChart();
+
+        if (!isset($this->buttonClickBuyACow[0])) {
+            $chartClickBuy->labels(['Button Click Buy']);
+            $chartClickBuy->dataset(
+                'Empty data',
+                'bar',
+                [
+                    0
+                ]
+            );
+        } else {
+            foreach ($this->buttonClickBuyACow as $item) {
+                $chartClickBuy->labels(['Button Click Buy']);
+                $chartClickBuy->dataset(
+                    $item->date,
+                    'bar',
+                    [
+                        $item->count,
+                    ]
+                );
+            }
+        }
+
+        return $chartClickBuy;
+    }
+
+    public function chartForViewDocuments(): ReportChart
+    {
+        $chartViewDocuments = new ReportChart();
+
+        if (!isset($this->pageViewDocuments[0])) {
+            $chartViewDocuments->labels(['Button Click Buy']);
+            $chartViewDocuments->dataset(
+                'Empty data',
+                'bar',
+                [
+                    0
+                ]
+            );
+        } else {
+            foreach ($this->pageViewDocuments as $item) {
+                $chartViewDocuments->labels(['Page Documents']);
+                $chartViewDocuments->dataset(
+                    $item->date,
+                    'bar',
+                    [
+                        $item->count,
+                    ]
+                );
+            }
+        }
+
+        return $chartViewDocuments;
+    }
+
+    public function chartForViewCowshed(): ReportChart
+    {
+        $chartViewCowshed = new ReportChart();
+        if (!isset($this->pageViewCowshed[0])) {
+            $chartViewCowshed->labels(['Page Cowshed']);
+            $chartViewCowshed->dataset(
+                'Empty data',
+                'bar',
+                [
+                    0
+                ]
+            );
+        } else {
+            foreach ($this->pageViewCowshed as $item) {
+                $chartViewCowshed->labels(['Page Cowshed']);
+                $chartViewCowshed->dataset(
+                    $item->date,
+                    'bar',
+                    [
+                        $item->count,
+                    ]
+                );
+            }
+        }
+
+        return $chartViewCowshed;
     }
 }

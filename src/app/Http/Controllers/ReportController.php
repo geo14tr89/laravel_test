@@ -21,53 +21,10 @@ class ReportController extends Controller
         $reportService->reportForPageClick();
         $reportService->reportForPageView();
 
-        $chartClickDownload = new ReportChart();
-        foreach ($reportService->buttonClickDownload as $item) {
-            $chartClickDownload->labels(['Button Click Download']);
-            $chartClickDownload->dataset(
-                $item->date,
-                'bar',
-                [
-                    $item->count,
-                ]
-            );
-        }
-
-        $chartClickBuy = new ReportChart();
-        foreach ($reportService->buttonClickBuyACow as $item) {
-            $chartClickBuy->labels(['Button Click Buy']);
-            $chartClickBuy->dataset(
-                $item->date,
-                'bar',
-                [
-                    $item->count,
-                ]
-            );
-        }
-
-        $chartViewDocuments = new ReportChart();
-        foreach ($reportService->pageViewDocuments as $item) {
-            $chartViewDocuments->labels(['Page Documents']);
-            $chartViewDocuments->dataset(
-                $item->date,
-                'bar',
-                [
-                    $item->count,
-                ]
-            );
-        }
-
-        $chartViewCowshed = new ReportChart();
-        foreach ($reportService->pageViewCowshed as $item) {
-            $chartViewCowshed->labels(['Page Cowshed']);
-            $chartViewCowshed->dataset(
-                $item->date,
-                'bar',
-                [
-                    $item->count,
-                ]
-            );
-        }
+        $chartClickDownload = $reportService->chartForClickDownload();
+        $chartClickBuy = $reportService->chartForClickBuy();
+        $chartViewDocuments = $reportService->chartForViewDocuments();
+        $chartViewCowshed = $reportService->chartForViewCowshed();
 
         return view(
             'report-chart',
